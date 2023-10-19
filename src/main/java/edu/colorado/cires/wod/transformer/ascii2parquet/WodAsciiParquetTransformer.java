@@ -8,6 +8,7 @@ public final class WodAsciiParquetTransformer {
 
   public static Cast parquetFromAscii(edu.colorado.cires.wod.ascii.model.Cast asciiCast, int geohashLength) {
     return Cast.builder()
+        .withDataset(asciiCast.getDataset())
         .withCastNumber(asciiCast.getCastNumber())
         .withCruiseNumber(asciiCast.getCruiseNumber())
         .withOriginatorsStationCode(asciiCast.getOriginatorsStationCode())
