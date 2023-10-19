@@ -11,11 +11,11 @@ class HourMin {
     this.min = min;
   }
 
-  public int getHour() {
+  int getHour() {
     return hour;
   }
 
-  public int getMin() {
+  int getMin() {
     return min;
   }
 }
