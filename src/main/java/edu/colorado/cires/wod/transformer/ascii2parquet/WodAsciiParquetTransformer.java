@@ -15,7 +15,7 @@ public final class WodAsciiParquetTransformer {
         .withYear(asciiCast.getYear())
         .withMonth(asciiCast.getMonth())
         .withDay(asciiCast.getDay())
-        .withTime(asciiCast.getTime() == null ? 0D : asciiCast.getTime())
+        .withTime(asciiCast.getTime())
         .withTimestamp(AsciiToParquet.getTimestamp(asciiCast))
         .withLongitude(asciiCast.getLongitude())
         .withLatitude(asciiCast.getLatitude())
