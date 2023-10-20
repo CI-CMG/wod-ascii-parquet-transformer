@@ -33,12 +33,19 @@ final class AsciiToParquet {
 
   }
 
+  private static int resolveDay(Short day) {
+    if (day == null || day == (short)0) {
+      return 1;
+    }
+    return day;
+  }
+
   static long getTimestamp(edu.colorado.cires.wod.ascii.model.Cast cast) {
     HourMin hourMin = getTime(cast);
     return LocalDateTime.of(
         cast.getYear(),
         cast.getMonth(),
-        cast.getDay() == null ? 1 : cast.getDay(),
+        resolveDay(cast.getDay()),
         hourMin.getHour(),
         hourMin.getMin()
     ).atZone(ZoneId.of("UTC")).toInstant().toEpochMilli();
