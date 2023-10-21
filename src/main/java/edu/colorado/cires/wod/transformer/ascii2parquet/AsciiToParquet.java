@@ -81,13 +81,13 @@ final class AsciiToParquet {
 
   static TaxonomicDataset mapTaxonomicDataset(List<edu.colorado.cires.wod.ascii.model.QcAttribute> asciiQcAttributes) {
     return TaxonomicDataset.builder()
-        .withAttributes(asciiQcAttributes.stream().map(AsciiToParquet::mapQcAttribute).collect(Collectors.toList()))
+        .withValues(asciiQcAttributes.stream().map(AsciiToParquet::mapQcAttribute).collect(Collectors.toList()))
         .build();
   }
 
   static ProfileData mapProfileData(edu.colorado.cires.wod.ascii.model.ProfileData asciiData) {
     return ProfileData.builder()
-        .withVariable(asciiData.getVariable())
+        .withVariableCode(asciiData.getVariable())
         .withValue(asciiData.getValue())
         .withQcFlag(asciiData.getQcFlag())
         .withOriginatorsFlag(asciiData.getOriginatorsFlag())
