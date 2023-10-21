@@ -63,7 +63,7 @@ final class AsciiToParquet {
   }
 
   static PrincipalInvestigator mapPi(edu.colorado.cires.wod.ascii.model.PrincipalInvestigator asciiPi) {
-    return PrincipalInvestigator.builder().withCode(asciiPi.getCode()).withVariable(asciiPi.getVariable()).build();
+    return PrincipalInvestigator.builder().withPiCode(asciiPi.getCode()).withVariableCode(asciiPi.getVariable()).build();
   }
 
   static Attribute mapAttribute(edu.colorado.cires.wod.ascii.model.Attribute asciiAttribute) {
