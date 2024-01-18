@@ -23,7 +23,7 @@ final class AsciiToParquet {
 
     double hoursWithFractionalHours = cast.getTime();
     int wholeHours = (int) hoursWithFractionalHours;
-    if (wholeHours == 24) {
+    if (wholeHours >= 24 || wholeHours < 0) {
       return new HourMin(0, 0);
     }
     double fractionalHours = hoursWithFractionalHours - (double) wholeHours;
