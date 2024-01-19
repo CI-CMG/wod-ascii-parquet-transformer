@@ -6,7 +6,7 @@
 
   <groupId>io.github.ci-cmg.wod</groupId>
   <artifactId>wod-ascii-parquet-transformer</artifactId>
-  <version>0.0.0-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>${project.groupId}:${project.artifactId}</name>
@@ -92,12 +92,12 @@
     <dependency>
       <groupId>io.github.ci-cmg.wod</groupId>
       <artifactId>wod-ascii-model</artifactId>
-      <version>0.0.0-SNAPSHOT</version>
+      <version>0.1.0</version>
     </dependency>
     <dependency>
       <groupId>io.github.ci-cmg.wod</groupId>
       <artifactId>wod-parquet-model</artifactId>
-      <version>0.0.0-SNAPSHOT</version>
+      <version>0.1.0</version>
     </dependency>
     <dependency>
       <groupId>com.github.davidmoten</groupId>
@@ -216,7 +216,7 @@
           <releaseProfiles>release,site-publish</releaseProfiles>
           <goals>deploy site</goals>
           <tagNameFormat>v@{project.version}</tagNameFormat>
-          <arguments>-Pdep-check -D${sign.serverId}</arguments>
+          <arguments>-D${sign.serverId}</arguments>
         </configuration>
       </plugin>
 
