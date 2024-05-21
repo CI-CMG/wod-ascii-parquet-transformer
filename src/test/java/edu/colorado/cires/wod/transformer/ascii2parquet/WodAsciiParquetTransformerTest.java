@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
+import org.apache.sedona.spark.SedonaContext;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
@@ -22,7 +23,6 @@ import org.junit.jupiter.api.Test;
 
 public class WodAsciiParquetTransformerTest {
 
-  private static final int GEOHASH_LENGTH = 3;
 
   @Test
   public void testParquetFromAscii() throws Exception {
@@ -33,7 +33,7 @@ public class WodAsciiParquetTransformerTest {
       CharReader characterReader = new BufferedCharReader(bufferedReader);
       CastFileReader reader = new CastFileReader(characterReader, "APB");
       while (reader.hasNext()) {
-        edu.colorado.cires.wod.parquet.model.Cast parquetCast = WodAsciiParquetTransformer.parquetFromAscii(reader.next(), GEOHASH_LENGTH);
+        edu.colorado.cires.wod.parquet.model.Cast parquetCast = WodAsciiParquetTransformer.parquetFromAscii(reader.next());
         parquetCasts.add(parquetCast);
       }
     }
@@ -56,14 +56,14 @@ public class WodAsciiParquetTransformerTest {
       CharReader characterReader = new BufferedCharReader(bufferedReader);
       CastFileReader reader = new CastFileReader(characterReader, "APB");
       while (reader.hasNext()) {
-        edu.colorado.cires.wod.parquet.model.Cast parquetCast = WodAsciiParquetTransformer.parquetFromAscii(reader.next(), GEOHASH_LENGTH);
+        edu.colorado.cires.wod.parquet.model.Cast parquetCast = WodAsciiParquetTransformer.parquetFromAscii(reader.next());
         parquetCasts.add(parquetCast);
       }
     }
 
     System.out.println(parquetCasts.get(0));
 
-    try(SparkSession spark = SparkSession.builder().appName("test").master("local[*]").getOrCreate()) {
+    try(SparkSession spark = SedonaContext.create(SedonaContext.builder().appName("test").master("local[*]").getOrCreate())) {
       Dataset<Cast> dataset = spark.createDataset(parquetCasts, Encoders.bean(Cast.class));
       dataset.printSchema();
       dataset.write().parquet("target/test.parquet");

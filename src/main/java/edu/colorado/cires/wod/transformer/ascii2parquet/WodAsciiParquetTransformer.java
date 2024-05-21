@@ -1,12 +1,11 @@
 package edu.colorado.cires.wod.transformer.ascii2parquet;
 
-import com.github.davidmoten.geo.GeoHash;
 import edu.colorado.cires.wod.parquet.model.Cast;
 import java.util.stream.Collectors;
 
 public final class WodAsciiParquetTransformer {
 
-  public static Cast parquetFromAscii(edu.colorado.cires.wod.ascii.model.Cast asciiCast, int geohashLength) {
+  public static Cast parquetFromAscii(edu.colorado.cires.wod.ascii.model.Cast asciiCast) {
     return Cast.builder()
         .withDataset(asciiCast.getDataset())
         .withCastNumber(asciiCast.getCastNumber())
@@ -21,7 +20,6 @@ public final class WodAsciiParquetTransformer {
         .withLatitude(asciiCast.getLatitude())
         .withProfileType(asciiCast.getProfileType())
         .withOriginatorsStationCode(asciiCast.getOriginatorsStationCode())
-        .withGeohash(GeoHash.encodeHash(asciiCast.getLatitude(), asciiCast.getLongitude(), geohashLength))
         .withVariables(
             asciiCast.getVariables().stream().map(AsciiToParquet::mapVariable).collect(Collectors.toList()))
         .withPrincipalInvestigators(
