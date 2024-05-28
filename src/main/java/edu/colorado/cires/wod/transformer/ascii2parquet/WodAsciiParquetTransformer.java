@@ -35,10 +35,6 @@ public final class WodAsciiParquetTransformer {
         .build();
   }
 
-  public static edu.colorado.cires.wod.ascii.model.Cast asciiFromParquet(Cast parquetCast) {
-    throw new UnsupportedOperationException("Not implemented yet");
-  }
-
 
   private WodAsciiParquetTransformer() {
 

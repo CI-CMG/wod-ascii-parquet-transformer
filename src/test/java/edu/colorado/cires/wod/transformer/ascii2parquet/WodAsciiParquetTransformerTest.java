@@ -43,11 +43,6 @@ public class WodAsciiParquetTransformerTest {
   }
 
   @Test
-  public void testAsciiFromParquet() {
-    // TODO
-  }
-
-  @Test
   public void testSpark() throws Exception {
     List<edu.colorado.cires.wod.parquet.model.Cast> parquetCasts = new ArrayList<>();
     try (BufferedReader bufferedReader = new BufferedReader(
