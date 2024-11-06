@@ -45,10 +45,15 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <sign.serverId>gpg-sign</sign.serverId>
+    <nvdApiKey>${env.NVD_API_KEY}</nvdApiKey>
     <javadoc.version>3.3.1</javadoc.version>
     <jacoco.version>0.8.7</jacoco.version>
-    <spark.version>3.4.1</spark.version>
+
+    <!-- versions in spark-3.5.3-bin-hadoop3-scala2.13.tgz -->
+    <spark.version>3.5.3</spark.version>
     <scala.version>2.13</scala.version>
+    <hadoop.version>3.3.4</hadoop.version>
+
   </properties>
 
   <repositories>
@@ -87,21 +92,7 @@
   </dependencyManagement>
 
   <dependencies>
-    <dependency>
-      <groupId>io.github.ci-cmg.wod</groupId>
-      <artifactId>wod-ascii-model</artifactId>
-      <version>0.1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>io.github.ci-cmg.wod</groupId>
-      <artifactId>wod-parquet-model</artifactId>
-      <version>0.2.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <scope>test</scope>
-    </dependency>
+    <!-- provided in Spark + Sedona installation -->
     <dependency>
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-core_${scala.version}</artifactId>
@@ -116,15 +107,33 @@
     </dependency>
     <dependency>
       <groupId>org.apache.sedona</groupId>
-      <artifactId>sedona-spark-3.4_2.13</artifactId>
-      <version>1.5.1</version>
+      <artifactId>sedona-spark-shaded-3.5_${scala.version}</artifactId>
+      <version>1.6.1</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.datasyslab</groupId>
-      <artifactId>geotools-wrapper</artifactId>
-      <version>1.5.1-28.2</version>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-client</artifactId>
+      <version>${hadoop.version}</version>
       <scope>provided</scope>
+    </dependency>
+    <!-- end provided in Spark installation -->
+
+
+    <dependency>
+      <groupId>io.github.ci-cmg.wod</groupId>
+      <artifactId>wod-ascii-model</artifactId>
+      <version>0.1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.ci-cmg.wod</groupId>
+      <artifactId>wod-parquet-model</artifactId>
+      <version>0.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -268,10 +277,10 @@
           <plugin>
             <groupId>org.owasp</groupId>
             <artifactId>dependency-check-maven</artifactId>
-            <version>8.4.0</version>
+            <version>10.0.3</version>
             <configuration>
-              <failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability>
               <skipProvidedScope>true</skipProvidedScope>
+              <failBuildOnCVSS>0</failBuildOnCVSS>
               <suppressionFiles>
                 <suppressionFile>owasp-dep-check-suppression.xml</suppressionFile>
               </suppressionFiles>
